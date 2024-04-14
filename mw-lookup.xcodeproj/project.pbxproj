@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B52500F82BCB6C1F00E5DED0 /* MWLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52500F72BCB6C1F00E5DED0 /* MWLookup.swift */; };
 		B5AFD95F2BCB6F5A00B81D02 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = B5AFD95E2BCB6F5A00B81D02 /* ArgumentParser */; };
+		B5AFD96F2BCB996700B81D02 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AFD96D2BCB996700B81D02 /* Request.swift */; };
+		B5AFD9702BCB996700B81D02 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AFD96E2BCB996700B81D02 /* Response.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +28,8 @@
 /* Begin PBXFileReference section */
 		B52500F42BCB6C1F00E5DED0 /* mw-lookup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "mw-lookup"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B52500F72BCB6C1F00E5DED0 /* MWLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWLookup.swift; sourceTree = "<group>"; };
+		B5AFD96D2BCB996700B81D02 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		B5AFD96E2BCB996700B81D02 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				B52500F72BCB6C1F00E5DED0 /* MWLookup.swift */,
+				B5AFD96D2BCB996700B81D02 /* Request.swift */,
+				B5AFD96E2BCB996700B81D02 /* Response.swift */,
 			);
 			path = "mw-lookup";
 			sourceTree = "<group>";
@@ -129,6 +135,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B52500F82BCB6C1F00E5DED0 /* MWLookup.swift in Sources */,
+				B5AFD9702BCB996700B81D02 /* Response.swift in Sources */,
+				B5AFD96F2BCB996700B81D02 /* Request.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
