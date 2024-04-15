@@ -35,7 +35,8 @@ struct Mwdic: AsyncParsableCommand {
         } else if let suggestions {
             printSuggestions(suggestions)
         } else {
-            print(data)
+            let rawString = String(decoding: data, as: UTF8.self)
+            print("Error when parsing \(rawString)")
         }
     }
 }
