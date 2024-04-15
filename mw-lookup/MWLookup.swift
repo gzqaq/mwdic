@@ -20,16 +20,6 @@ struct MWLookup: AsyncParsableCommand {
         print("You want to look up `\(word)' via the API key \(apiKey).")
 
         let response = try await queryAndParse(word: word, apiKey: apiKey)
-        for item in response {
-            print("=== \(item.fl) ===")
-
-            for (i, def) in item.def.enumerated() {
-                print("\(i + 1).")
-
-                for sseq in def.sseq {
-                    print(sseq)
-                }
-            }
-        }
+        printResponse(response)
     }
 }

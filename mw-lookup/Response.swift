@@ -2,261 +2,281 @@
 //  Response.swift
 //  mw-lookup
 //
-//  Created by Ziqin Gong on 2024/4/14.
+//  Created by Ziqin Gong on 2024/4/15.
 //
 
 import Foundation
 
-// MARK: - LookupResultElement
+// MARK: - Printable
 
-struct LookupResultElement: Codable {
-    let meta: Meta
-    let hom: Int?
-    let hwi: Hwi
-    let fl: String
-    let def: [Def]
-    let et: [[String]]?
-    let date: String
-    let shortdef: [String]
-    let ins: [In]?
-    let uros: [Uro]?
-    let syns: [Syn]?
+protocol Printable {
+    func repr(indent: Int) -> String
 }
 
-// MARK: - Def
-
-struct Def: Codable {
-    let sseq: [[[SseqElement]]]
-    let vd: String?
+private func getIndentation(_ length: Int) -> String {
+    return String(repeating: " ", count: length)
 }
 
-enum SseqElement: Codable {
-    case enumeration(SseqEnum)
-    case sseqClass(SseqClass)
+// MARK: - ParseError
 
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let x = try? container.decode(SseqEnum.self) {
-            self = .enumeration(x)
-            return
-        }
-        if let x = try? container.decode(SseqClass.self) {
-            self = .sseqClass(x)
-            return
-        }
-        throw DecodingError.typeMismatch(SseqElement.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for SseqElement"))
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .enumeration(let x):
-            try container.encode(x)
-        case .sseqClass(let x):
-            try container.encode(x)
-        }
-    }
+enum ParseError: Error {
+    case unsupportedKey(_ key: String, of: String)
 }
 
-// MARK: - SseqClass
+// MARK: - AqItem
 
-struct SseqClass: Codable {
-    let sn: String?
-    let dt: [[SseqDt]]
-    let sls: [String]?
-    let sdsense: Sdsense?
+/// Attributes of quote.
+struct AqItem: Codable {
+    let auth, source, aqdate, subsource: String?
 }
 
-enum SseqDt: Codable {
-    case string(String)
-    case unionArray([DtDtUnion])
+// MARK: - VisItem
 
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let x = try? container.decode([DtDtUnion].self) {
-            self = .unionArray(x)
-            return
-        }
-        if let x = try? container.decode(String.self) {
-            self = .string(x)
-            return
-        }
-        throw DecodingError.typeMismatch(SseqDt.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for SseqDt"))
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .string(let x):
-            try container.encode(x)
-        case .unionArray(let x):
-            try container.encode(x)
-        }
-    }
-}
-
-enum DtDtUnion: Codable {
-    case dtClass(DtClass)
-    case stringArrayArray([[String]])
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let x = try? container.decode([[String]].self) {
-            self = .stringArrayArray(x)
-            return
-        }
-        if let x = try? container.decode(DtClass.self) {
-            self = .dtClass(x)
-            return
-        }
-        throw DecodingError.typeMismatch(DtDtUnion.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for DtDtUnion"))
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .dtClass(let x):
-            try container.encode(x)
-        case .stringArrayArray(let x):
-            try container.encode(x)
-        }
-    }
-}
-
-// MARK: - DtClass
-
-struct DtClass: Codable {
+/// Verbal illustrations.
+struct VisItem: Codable, Printable {
     let t: String
-    let aq: Aq?
+    let aq: AqItem?
+
+    func repr(indent: Int = 0) -> String {
+        let tab = getIndentation(indent)
+        return "\(tab)\(t)\n"
+    }
 }
 
-// MARK: - Aq
+// MARK: - DtItem
 
-struct Aq: Codable {
-    let source, auth: String?
+/// Defining text.
+indirect enum DtItem: Codable, Printable {
+    case text(String)
+    case vis([VisItem])
+    case uns([[DtItem]])
+
+    init(from decoder: any Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        let key = try container.decode(String.self)
+
+        switch key {
+        case "text":
+            self = try DtItem.text(container.decode(String.self))
+        case "vis":
+            self = try DtItem.vis(container.decode([VisItem].self))
+        case "uns":
+            self = try DtItem.uns(container.decode([[DtItem]].self))
+        case _:
+            throw ParseError.unsupportedKey(key, of: "DtItem")
+        }
+    }
+
+    func repr(indent: Int = 0) -> String {
+        var repr = ""
+
+        switch self {
+        case .text(let content):
+            repr = getIndentation(indent) + content + "\n"
+
+        case .vis(let visItems):
+            for it in visItems {
+                repr.append(it.repr(indent: indent + 2) + "\n")
+            }
+
+        case .uns(let dtItemsArray):
+            for dtItems in dtItemsArray {
+                for dtItem in dtItems {
+                    repr.append(dtItem.repr(indent: indent + 2) + "\n")
+                }
+            }
+        }
+
+        return repr
+    }
 }
 
-// MARK: - Sdsense
+// MARK: - SdSense
 
-struct Sdsense: Codable {
+/// Divided sense.
+struct SdSense: Codable, Printable {
     let sd: String
-    let dt: [[PtUnion]]
+    let dt: [DtItem]
+
+    func repr(indent: Int = 0) -> String {
+        var repr = getIndentation(indent)
+        repr.append("\(sd)\n")
+
+        for item in dt {
+            repr.append(item.repr(indent: indent + 2))
+        }
+
+        return repr
+    }
 }
 
-enum PtUnion: Codable {
-    case ptClassArray([PtClass])
-    case string(String)
+// MARK: - Sense
 
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let x = try? container.decode([PtClass].self) {
-            self = .ptClassArray(x)
-            return
+/// Sense.
+struct Sense: Codable, Printable {
+    let sn: String?
+    let dt: [DtItem]
+    let sdsense: SdSense?
+
+    func repr(indent: Int = 0) -> String {
+        var repr = getIndentation(indent)
+
+        if let sn {
+            repr.append(sn + "\n")
         }
-        if let x = try? container.decode(String.self) {
-            self = .string(x)
-            return
+
+        for it in dt {
+            repr.append(it.repr(indent: indent + 2))
         }
-        throw DecodingError.typeMismatch(PtUnion.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for PtUnion"))
+
+        if let sdsense {
+            repr.append(sdsense.repr(indent: indent + 2))
+        }
+
+        return repr
+    }
+}
+
+// MARK: - Bs
+
+/// Binding substitute.
+struct Bs: Codable, Printable {
+    let sense: Sense
+
+    func repr(indent: Int = 0) -> String {
+        return sense.repr(indent: indent)
+    }
+}
+
+// MARK: - Sen
+
+/// Truncated sense.
+struct Sen: Codable, Printable {
+    let sn: String?
+
+    func repr(indent: Int = 0) -> String {
+        var repr = getIndentation(indent)
+
+        if let sn {
+            repr.append(sn + "\n")
+        }
+
+        return repr
+    }
+}
+
+// MARK: - SensesItem
+
+/// Sense, binding substitute, parenthesized sense sequence and truncated sense.
+indirect enum SensesItem: Codable, Printable {
+    case sense(Sense)
+    case bs(Bs)
+    case pseq([SensesItem])
+    case sen(Sen)
+
+    init(from decoder: any Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        let key = try container.decode(String.self)
+
+        switch key {
+        case "sense":
+            self = try SensesItem.sense(container.decode(Sense.self))
+        case "bs":
+            self = try SensesItem.bs(container.decode(Bs.self))
+        case "pseq":
+            self = try SensesItem.pseq(container.decode([SensesItem].self))
+        case "sen":
+            self = try SensesItem.sen(container.decode(Sen.self))
+        case _:
+            throw ParseError.unsupportedKey(key, of: "SensesItem")
+        }
     }
 
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
+    func repr(indent: Int = 0) -> String {
+        var repr = getIndentation(indent)
+
         switch self {
-        case .ptClassArray(let x):
-            try container.encode(x)
-        case .string(let x):
-            try container.encode(x)
+        case .sense(let sense):
+            repr = sense.repr(indent: indent)
+        case .bs(let bs):
+            repr = bs.repr(indent: indent)
+        case .pseq(let pseq):
+            for it in pseq {
+                repr.append(it.repr(indent: indent))
+            }
+        case .sen(let sen):
+            repr = sen.repr(indent: indent)
         }
+
+        return repr
     }
 }
 
-// MARK: - PtClass
+typealias Senses = [SensesItem]
+typealias SSeq = [Senses]
 
-struct PtClass: Codable {
-    let t: String
-}
+// MARK: - DefItem
 
-enum SseqEnum: String, Codable {
-    case sense
-}
+/// Definition section.
+struct DefItem: Codable, Printable {
+    let vd: String?
+    let sseq: SSeq
 
-// MARK: - Hwi
+    func repr(indent: Int = 0) -> String {
+        var repr = getIndentation(indent)
 
-struct Hwi: Codable {
-    let hw: String
-    let prs: [PR]?
-}
+        if let vd {
+            repr.append(vd + "\n")
+        }
 
-// MARK: - PR
+        for senses in sseq {
+            for sense in senses {
+                repr.append(sense.repr(indent: indent + 2))
+            }
+        }
 
-struct PR: Codable {
-    let mw: String
-    let sound: Sound?
-}
-
-// MARK: - Sound
-
-struct Sound: Codable {
-    let audio: String
-    let ref: Ref
-    let stat: String
-}
-
-enum Ref: String, Codable {
-    case c
-    case owl
-}
-
-// MARK: - In
-
-struct In: Codable {
-    let inIf: String
-
-    enum CodingKeys: String, CodingKey {
-        case inIf = "if"
+        return repr
     }
 }
 
 // MARK: - Meta
 
-struct Meta: Codable {
+/// Entry metadata.
+struct Meta: Codable, Printable {
     let id, uuid, sort: String
-    let src: Src
-    let section: Section
     let stems: [String]
     let offensive: Bool
+
+    func repr(indent: Int = 0) -> String {
+        let tab = String(repeating: " ", count: indent)
+        let stemsStr = stems.joined(separator: ", ")
+        return "\(tab)\(id) (\(stemsStr))\n"
+    }
 }
 
-enum Section: String, Codable {
-    case alpha
+// MARK: - Entry
+
+/// Entry.
+struct Entry: Codable, Printable {
+    let meta: Meta
+    let def: [DefItem]
+
+    func repr(indent: Int = 0) -> String {
+        var repr = meta.repr(indent: indent)
+
+        for it in def {
+            repr.append(it.repr(indent: indent))
+        }
+
+        return repr
+    }
 }
 
-enum Src: String, Codable {
-    case collegiate
+typealias LookupResult = [Entry]
+
+
+func printResponse(_ response: LookupResult) {
+    for entry in response {
+        print(entry.repr())
+    }
 }
-
-// MARK: - Syn
-
-struct Syn: Codable {
-    let pl: String
-    let pt: [[PtUnion]]
-}
-
-// MARK: - Uro
-
-struct Uro: Codable {
-    let ure: String
-    let prs: [PR]?
-    let fl: String
-    let vrs: [VR]?
-}
-
-// MARK: - VR
-
-struct VR: Codable {
-    let vl, va: String
-    let prs: [PR]
-}
-
-typealias LookupResult = [LookupResultElement]
