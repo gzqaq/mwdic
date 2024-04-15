@@ -26,7 +26,6 @@ struct Mwdic: AsyncParsableCommand {
         } else {
             fatalError("No API key provided!")
         }
-        print("You want to look up `\(word)' via the API key \(validKey).")
 
         let response = try await queryAndParse(word: word, apiKey: validKey)
         printResponse(response)
