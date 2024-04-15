@@ -276,7 +276,31 @@ struct Entry: Codable, Printable {
     }
 }
 
+
+// MARK: - Misspelling
+
+/// Suggestions for possible misspelling.
+typealias Misspelling = String
+
+// MARK: - LookupResult
+
+/// Array of `Entry`s is returned by the API.
 typealias LookupResult = [Entry]
+
+/// If there is no word in the dictionary, the API will provide spelling suggestions.
+typealias SpellingSuggestions = [Misspelling]
+
+// MARK: - parse data
+
+func parseReturnedData(_ data: Data) -> (LookupResult?, SpellingSuggestions?) {
+    if let response = try? JSONDecoder().decode(LookupResult.self, from: data) {
+        return (response, nil)
+    } else if let response = try? JSONDecoder().decode(SpellingSuggestions.self, from: data) {
+        return (nil, response)
+    } else {
+        return (nil, nil)
+    }
+}
 
 // MARK: - print utilities
 
@@ -309,4 +333,12 @@ func printResponse(_ response: LookupResult) {
     for entry in response {
         print(cleanTokens(repr: entry.repr()))
     }
+}
+
+func printSuggestions(_ response: SpellingSuggestions) {
+    print("""
+    The word you've entered isn't in the dictionary.\
+    Some spelling suggestions:
+    """)
+    print(response.joined(separator: ", "))
 }

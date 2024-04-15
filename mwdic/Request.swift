@@ -7,11 +7,11 @@
 
 import Foundation
 
-func queryAndParse(word: String, apiKey: String) async throws -> LookupResult {
+func queryAPI(word: String, apiKey: String) async throws -> Data {
     guard let requestURL = URL(string: "https://www.dictionaryapi.com/api/v3/references/collegiate/json/\(word)?key=\(apiKey)") else {
         fatalError("Invalid URL!")
     }
     let (data, _) = try await URLSession.shared.data(from: requestURL)
 
-    return try JSONDecoder().decode(LookupResult.self, from: data)
+    return data
 }

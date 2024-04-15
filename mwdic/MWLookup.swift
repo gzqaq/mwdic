@@ -27,7 +27,15 @@ struct Mwdic: AsyncParsableCommand {
             fatalError("No API key provided!")
         }
 
-        let response = try await queryAndParse(word: word, apiKey: validKey)
-        printResponse(response)
+        let data = try await queryAPI(word: word, apiKey: validKey)
+        let (result, suggestions) = parseReturnedData(data)
+
+        if let result {
+            printResponse(result)
+        } else if let suggestions {
+            printSuggestions(suggestions)
+        } else {
+            print(data)
+        }
     }
 }
