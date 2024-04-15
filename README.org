@@ -1,0 +1,15 @@
+#+title: mwdic
+#+author: Ziqin Gong
+
+** Usage
+#+begin_src
+USAGE: mwdic <word> [--api-key <api-key>] [--raw <raw>]
+
+ARGUMENTS:
+  <word>                  The word to look up.
+
+OPTIONS:
+  -k, --api-key <api-key> API key. Can also be passed by MW_API_KEY.
+  --raw <raw>             Raw string to parse. Used for debugging.
+  -h, --help              Show help information.
+#+end_src
