@@ -1,6 +1,6 @@
 //
 //  main.swift
-//  mw-lookup
+//  mwdic
 //
 //  Created by Ziqin Gong on 2024/4/14.
 //
@@ -9,7 +9,7 @@ import ArgumentParser
 import Foundation
 
 @main
-struct MWLookup: AsyncParsableCommand {
+struct Mwdic: AsyncParsableCommand {
     @Argument(help: "The word to look up.")
     var word: String
 

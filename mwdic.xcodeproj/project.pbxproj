@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B52500F82BCB6C1F00E5DED0 /* MWLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52500F72BCB6C1F00E5DED0 /* MWLookup.swift */; };
-		B58B2A102BCCBDE800A9A9AD /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58B2A0F2BCCBDE800A9A9AD /* Response.swift */; };
-		B5AFD95F2BCB6F5A00B81D02 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = B5AFD95E2BCB6F5A00B81D02 /* ArgumentParser */; };
-		B5AFD96F2BCB996700B81D02 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AFD96D2BCB996700B81D02 /* Request.swift */; };
+		B5CB5BAB2BCCF4D500FF2518 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = B5CB5BAA2BCCF4D500FF2518 /* ArgumentParser */; };
+		B5CB5BB02BCCF54E00FF2518 /* MWLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB5BAC2BCCF54E00FF2518 /* MWLookup.swift */; };
+		B5CB5BB12BCCF54E00FF2518 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB5BAD2BCCF54E00FF2518 /* Request.swift */; };
+		B5CB5BB22BCCF54E00FF2518 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CB5BAE2BCCF54E00FF2518 /* Response.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		B52500F22BCB6C1F00E5DED0 /* CopyFiles */ = {
+		B5CB5B9D2BCCF4BC00FF2518 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -26,89 +26,89 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B52500F42BCB6C1F00E5DED0 /* mw-lookup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "mw-lookup"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B52500F72BCB6C1F00E5DED0 /* MWLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWLookup.swift; sourceTree = "<group>"; };
-		B58B2A0F2BCCBDE800A9A9AD /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		B5AFD96D2BCB996700B81D02 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		B5CB5B9F2BCCF4BC00FF2518 /* mwdic */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mwdic; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5CB5BAC2BCCF54E00FF2518 /* MWLookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MWLookup.swift; sourceTree = "<group>"; };
+		B5CB5BAD2BCCF54E00FF2518 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		B5CB5BAE2BCCF54E00FF2518 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B52500F12BCB6C1F00E5DED0 /* Frameworks */ = {
+		B5CB5B9C2BCCF4BC00FF2518 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5AFD95F2BCB6F5A00B81D02 /* ArgumentParser in Frameworks */,
+				B5CB5BAB2BCCF4D500FF2518 /* ArgumentParser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B52500EB2BCB6C1F00E5DED0 = {
+		B5CB5B962BCCF4BC00FF2518 = {
 			isa = PBXGroup;
 			children = (
-				B52500F62BCB6C1F00E5DED0 /* mw-lookup */,
-				B52500F52BCB6C1F00E5DED0 /* Products */,
+				B5CB5BAF2BCCF54E00FF2518 /* mwdic */,
+				B5CB5BA02BCCF4BC00FF2518 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		B52500F52BCB6C1F00E5DED0 /* Products */ = {
+		B5CB5BA02BCCF4BC00FF2518 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B52500F42BCB6C1F00E5DED0 /* mw-lookup */,
+				B5CB5B9F2BCCF4BC00FF2518 /* mwdic */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B52500F62BCB6C1F00E5DED0 /* mw-lookup */ = {
+		B5CB5BAF2BCCF54E00FF2518 /* mwdic */ = {
 			isa = PBXGroup;
 			children = (
-				B52500F72BCB6C1F00E5DED0 /* MWLookup.swift */,
-				B58B2A0F2BCCBDE800A9A9AD /* Response.swift */,
-				B5AFD96D2BCB996700B81D02 /* Request.swift */,
+				B5CB5BAC2BCCF54E00FF2518 /* MWLookup.swift */,
+				B5CB5BAD2BCCF54E00FF2518 /* Request.swift */,
+				B5CB5BAE2BCCF54E00FF2518 /* Response.swift */,
 			);
-			path = "mw-lookup";
+			path = mwdic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B52500F32BCB6C1F00E5DED0 /* mw-lookup */ = {
+		B5CB5B9E2BCCF4BC00FF2518 /* mwdic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B52500FB2BCB6C1F00E5DED0 /* Build configuration list for PBXNativeTarget "mw-lookup" */;
+			buildConfigurationList = B5CB5BA62BCCF4BC00FF2518 /* Build configuration list for PBXNativeTarget "mwdic" */;
 			buildPhases = (
-				B52500F02BCB6C1F00E5DED0 /* Sources */,
-				B52500F12BCB6C1F00E5DED0 /* Frameworks */,
-				B52500F22BCB6C1F00E5DED0 /* CopyFiles */,
+				B5CB5B9B2BCCF4BC00FF2518 /* Sources */,
+				B5CB5B9C2BCCF4BC00FF2518 /* Frameworks */,
+				B5CB5B9D2BCCF4BC00FF2518 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "mw-lookup";
+			name = mwdic;
 			packageProductDependencies = (
-				B5AFD95E2BCB6F5A00B81D02 /* ArgumentParser */,
+				B5CB5BAA2BCCF4D500FF2518 /* ArgumentParser */,
 			);
-			productName = "mw-lookup";
-			productReference = B52500F42BCB6C1F00E5DED0 /* mw-lookup */;
+			productName = mwdic;
+			productReference = B5CB5B9F2BCCF4BC00FF2518 /* mwdic */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		B52500EC2BCB6C1F00E5DED0 /* Project object */ = {
+		B5CB5B972BCCF4BC00FF2518 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
-					B52500F32BCB6C1F00E5DED0 = {
+					B5CB5B9E2BCCF4BC00FF2518 = {
 						CreatedOnToolsVersion = 15.3;
 					};
 				};
 			};
-			buildConfigurationList = B52500EF2BCB6C1F00E5DED0 /* Build configuration list for PBXProject "mw-lookup" */;
+			buildConfigurationList = B5CB5B9A2BCCF4BC00FF2518 /* Build configuration list for PBXProject "mwdic" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -116,34 +116,34 @@
 				en,
 				Base,
 			);
-			mainGroup = B52500EB2BCB6C1F00E5DED0;
+			mainGroup = B5CB5B962BCCF4BC00FF2518;
 			packageReferences = (
-				B5AFD95D2BCB6F5A00B81D02 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+				B5CB5BA92BCCF4D500FF2518 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 			);
-			productRefGroup = B52500F52BCB6C1F00E5DED0 /* Products */;
+			productRefGroup = B5CB5BA02BCCF4BC00FF2518 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B52500F32BCB6C1F00E5DED0 /* mw-lookup */,
+				B5CB5B9E2BCCF4BC00FF2518 /* mwdic */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B52500F02BCB6C1F00E5DED0 /* Sources */ = {
+		B5CB5B9B2BCCF4BC00FF2518 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B52500F82BCB6C1F00E5DED0 /* MWLookup.swift in Sources */,
-				B58B2A102BCCBDE800A9A9AD /* Response.swift in Sources */,
-				B5AFD96F2BCB996700B81D02 /* Request.swift in Sources */,
+				B5CB5BB02BCCF54E00FF2518 /* MWLookup.swift in Sources */,
+				B5CB5BB22BCCF54E00FF2518 /* Response.swift in Sources */,
+				B5CB5BB12BCCF54E00FF2518 /* Request.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		B52500F92BCB6C1F00E5DED0 /* Debug */ = {
+		B5CB5BA42BCCF4BC00FF2518 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -206,7 +206,7 @@
 			};
 			name = Debug;
 		};
-		B52500FA2BCB6C1F00E5DED0 /* Release */ = {
+		B5CB5BA52BCCF4BC00FF2518 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -261,7 +261,7 @@
 			};
 			name = Release;
 		};
-		B52500FC2BCB6C1F00E5DED0 /* Debug */ = {
+		B5CB5BA72BCCF4BC00FF2518 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -272,7 +272,7 @@
 			};
 			name = Debug;
 		};
-		B52500FD2BCB6C1F00E5DED0 /* Release */ = {
+		B5CB5BA82BCCF4BC00FF2518 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -286,20 +286,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B52500EF2BCB6C1F00E5DED0 /* Build configuration list for PBXProject "mw-lookup" */ = {
+		B5CB5B9A2BCCF4BC00FF2518 /* Build configuration list for PBXProject "mwdic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B52500F92BCB6C1F00E5DED0 /* Debug */,
-				B52500FA2BCB6C1F00E5DED0 /* Release */,
+				B5CB5BA42BCCF4BC00FF2518 /* Debug */,
+				B5CB5BA52BCCF4BC00FF2518 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B52500FB2BCB6C1F00E5DED0 /* Build configuration list for PBXNativeTarget "mw-lookup" */ = {
+		B5CB5BA62BCCF4BC00FF2518 /* Build configuration list for PBXNativeTarget "mwdic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B52500FC2BCB6C1F00E5DED0 /* Debug */,
-				B52500FD2BCB6C1F00E5DED0 /* Release */,
+				B5CB5BA72BCCF4BC00FF2518 /* Debug */,
+				B5CB5BA82BCCF4BC00FF2518 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -307,7 +307,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B5AFD95D2BCB6F5A00B81D02 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+		B5CB5BA92BCCF4D500FF2518 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
 			requirement = {
@@ -318,12 +318,12 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B5AFD95E2BCB6F5A00B81D02 /* ArgumentParser */ = {
+		B5CB5BAA2BCCF4D500FF2518 /* ArgumentParser */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B5AFD95D2BCB6F5A00B81D02 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			package = B5CB5BA92BCCF4D500FF2518 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
 			productName = ArgumentParser;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = B52500EC2BCB6C1F00E5DED0 /* Project object */;
+	rootObject = B5CB5B972BCCF4BC00FF2518 /* Project object */;
 }

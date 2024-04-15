@@ -1,6 +1,6 @@
 //
 //  Request.swift
-//  mw-lookup
+//  mwdic
 //
 //  Created by Ziqin Gong on 2024/4/14.
 //
