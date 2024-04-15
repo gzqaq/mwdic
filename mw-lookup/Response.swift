@@ -76,13 +76,13 @@ indirect enum DtItem: Codable, Printable {
 
         case .vis(let visItems):
             for it in visItems {
-                repr.append(it.repr(indent: indent + 2) + "\n")
+                repr.append(it.repr(indent: indent + 2))
             }
 
         case .uns(let dtItemsArray):
             for dtItems in dtItemsArray {
                 for dtItem in dtItems {
-                    repr.append(dtItem.repr(indent: indent + 2) + "\n")
+                    repr.append(dtItem.repr(indent: indent + 2))
                 }
             }
         }
