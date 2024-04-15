@@ -119,10 +119,10 @@ struct Sense: Codable, Printable {
     let sdsense: SdSense?
 
     func repr(indent: Int = 0) -> String {
-        var repr = getIndentation(indent)
+        var repr = ""
 
         if let sn {
-            repr.append(sn + "\n")
+            repr.append(getIndentation(indent) + sn + "\n")
         }
 
         for it in dt {
@@ -155,10 +155,10 @@ struct Sen: Codable, Printable {
     let sn: String?
 
     func repr(indent: Int = 0) -> String {
-        var repr = getIndentation(indent)
+        var repr = ""
 
         if let sn {
-            repr.append(sn + "\n")
+            repr.append(getIndentation(indent) + sn + "\n")
         }
 
         return repr
@@ -201,6 +201,7 @@ indirect enum SensesItem: Codable, Printable {
         case .bs(let bs):
             repr = bs.repr(indent: indent)
         case .pseq(let pseq):
+            repr = ""
             for it in pseq {
                 repr.append(it.repr(indent: indent))
             }
@@ -223,10 +224,10 @@ struct DefItem: Codable, Printable {
     let sseq: SSeq
 
     func repr(indent: Int = 0) -> String {
-        var repr = getIndentation(indent)
+        var repr = ""
 
         if let vd {
-            repr.append(vd + "\n")
+            repr.append(getIndentation(indent) + vd + "\n")
         }
 
         for senses in sseq {
