@@ -292,8 +292,12 @@ typealias SpellingSuggestions = [Misspelling]
 
 // MARK: - parse data
 
+func parseLookupResult(_ data: Data) throws -> LookupResult {
+    return try JSONDecoder().decode(LookupResult.self, from: data)
+}
+
 func parseReturnedData(_ data: Data) -> (LookupResult?, SpellingSuggestions?) {
-    if let response = try? JSONDecoder().decode(LookupResult.self, from: data) {
+    if let response = try? parseLookupResult(data) {
         return (response, nil)
     } else if let response = try? JSONDecoder().decode(SpellingSuggestions.self, from: data) {
         return (nil, response)
