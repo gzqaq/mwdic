@@ -288,6 +288,21 @@ func cleanTokens(repr: String) -> String {
         .replacing("{/it}", with: "\u{1b}[0m")
         .replacing("{wi}", with: "\u{1b}[3m")
         .replacing("{/wi}", with: "\u{1b}[0m")
+        .replacing(/{sx\|([a-zA-Z]+)\|(.*?)\|(.*?)}/) { result in
+            var label: Substring = ""
+
+            if result.2 != "" {
+                label = result.2
+            } else {
+                label = result.1
+            }
+
+            if result.3 != "" {
+                label.append(contentsOf: " \(result.3)")
+            }
+
+            return "\u{1b}[34m\(label)\u{1b}[0m"
+        }
 }
 
 func printResponse(_ response: LookupResult) {
