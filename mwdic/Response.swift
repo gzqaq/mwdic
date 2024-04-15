@@ -316,7 +316,7 @@ func cleanTokens(repr: String) -> String {
         .replacing("{/it}", with: "\u{1b}[0m")
         .replacing("{wi}", with: "\u{1b}[3m")
         .replacing("{/wi}", with: "\u{1b}[0m")
-        .replacing(/{sx\|([a-zA-Z]+)\|(.*?)\|(.*?)}/) { result in
+        .replacing(/{sx\|([a-zA-Z ]+)\|(.*?)\|(.*?)}/) { result in
             var label: Substring = ""
 
             if result.2 != "" {
