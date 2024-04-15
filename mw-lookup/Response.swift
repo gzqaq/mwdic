@@ -39,7 +39,7 @@ struct VisItem: Codable, Printable {
 
     func repr(indent: Int = 0) -> String {
         let tab = getIndentation(indent)
-        return "\(tab)\(t)\n"
+        return "\(tab)- \(t)\n"
     }
 }
 
@@ -100,7 +100,7 @@ struct SdSense: Codable, Printable {
 
     func repr(indent: Int = 0) -> String {
         var repr = getIndentation(indent)
-        repr.append("\(sd)\n")
+        repr.append("\u{1b}[3m\(sd)\u{1b}[0m\n")
 
         for item in dt {
             repr.append(item.repr(indent: indent + 2))
@@ -122,7 +122,8 @@ struct Sense: Codable, Printable {
         var repr = ""
 
         if let sn {
-            repr.append(getIndentation(indent) + sn + "\n")
+            let snBold = "\u{1b}[1m\(sn)\u{1b}[0m"
+            repr.append(getIndentation(indent) + snBold + "\n")
         }
 
         for it in dt {
@@ -158,7 +159,8 @@ struct Sen: Codable, Printable {
         var repr = ""
 
         if let sn {
-            repr.append(getIndentation(indent) + sn + "\n")
+            let snBold = "\u{1b}[1m\(sn)\u{1b}[0m"
+            repr.append(getIndentation(indent) + snBold + "\n")
         }
 
         return repr
@@ -227,7 +229,8 @@ struct DefItem: Codable, Printable {
         var repr = ""
 
         if let vd {
-            repr.append(getIndentation(indent) + vd + "\n")
+            let vdBold = "\u{1b}[1m\(vd)\u{1b}[0m"
+            repr.append(getIndentation(indent) + vdBold + "\n")
         }
 
         for senses in sseq {
@@ -251,7 +254,7 @@ struct Meta: Codable, Printable {
     func repr(indent: Int = 0) -> String {
         let tab = String(repeating: " ", count: indent)
         let stemsStr = stems.joined(separator: ", ")
-        return "\(tab)\(id) (\(stemsStr))\n"
+        return "\(tab)\u{1b}[1;32m\(id)\u{1b}[0m (\(stemsStr))\n"
     }
 }
 
@@ -275,9 +278,20 @@ struct Entry: Codable, Printable {
 
 typealias LookupResult = [Entry]
 
+// MARK: - print utilities
+
+func cleanTokens(repr: String) -> String {
+    return repr.replacing("{bc}", with: "\u{1b}[1m: \u{1b}[0m")
+        .replacing("{b}", with: "\u{1b}[1m")
+        .replacing("{/b}", with: "\u{1b}[0m")
+        .replacing("{it}", with: "\u{1b}[3m")
+        .replacing("{/it}", with: "\u{1b}[0m")
+        .replacing("{wi}", with: "\u{1b}[3m")
+        .replacing("{/wi}", with: "\u{1b}[0m")
+}
 
 func printResponse(_ response: LookupResult) {
     for entry in response {
-        print(entry.repr())
+        print(cleanTokens(repr: entry.repr()))
     }
 }
