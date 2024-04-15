@@ -63,7 +63,7 @@ indirect enum DtItem: Codable, Printable {
         case "uns":
             self = try DtItem.uns(container.decode([[DtItem]].self))
         case _:
-            throw ParseError.unsupportedKey(key, of: "DtItem")
+            self = DtItem.text("\u{1b}[7mUnsupported key `\(key)` in `DtItem`\u{1b}[0m")
         }
     }
 
