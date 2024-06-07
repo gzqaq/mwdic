@@ -263,17 +263,21 @@ struct Meta: Codable, Printable {
 /// Entry.
 struct Entry: Codable, Printable {
     let meta: Meta
-    let fl: String
-    let def: [DefItem]
+    let fl: String?
+    let def: [DefItem]?
 
     func repr(indent: Int = 0) -> String {
         var repr = meta.repr(indent: indent)
-        if fl != "verb" {
-            repr.append("\(getIndentation(indent))\u{1b}[1m\(fl)\u{1b}[0m\n")
+        if let fl {
+            if fl != "verb" {
+                repr.append("\(getIndentation(indent))\u{1b}[1m\(fl)\u{1b}[0m\n")
+            }
         }
 
-        for it in def {
-            repr.append(it.repr(indent: indent))
+        if let def {
+            for it in def {
+                repr.append(it.repr(indent: indent))
+            }
         }
 
         return repr
